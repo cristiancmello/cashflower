@@ -51,10 +51,13 @@ class AccountingEntryControllerIT {
 
     var response = restTemplate.postForEntity(uri, request, AccountingEntryResponseModelSuccessfully.class);
 
+    var nonNullBody = Objects.requireNonNull(response.getBody());
+
     assertThat(response.getStatusCode().value()).isEqualTo(201);
-    assertThat(Objects.requireNonNull(response.getBody()).getMessage()).containsIgnoringCase("successfully created");
-    assertThat(UUID.fromString(response.getBody().getId())).isInstanceOf(UUID.class);
-    assertThat(LocalDateTime.parse(response.getBody().getCreationTime())).isInstanceOf(LocalDateTime.class);
+    assertThat(nonNullBody.getMessage()).containsIgnoringCase("successfully created");
+    assertThat(UUID.fromString(nonNullBody.getId())).isInstanceOf(UUID.class);
+    assertThat(LocalDateTime.parse(nonNullBody.getCreationTime())).isInstanceOf(LocalDateTime.class);
+    assertThat(nonNullBody.getStatus()).isEqualTo("success");
   }
 
   @Test
@@ -66,7 +69,10 @@ class AccountingEntryControllerIT {
 
     var response = restTemplate.postForEntity(uri, request, AccountingEntryResponseModelWithError.class);
 
+    var nonNullBody = Objects.requireNonNull(response.getBody());
+
     assertThat(response.getStatusCode().value()).isEqualTo(400);
-    assertThat(Objects.requireNonNull(response.getBody()).getMessage()).containsIgnoringCase("empty fields");
+    assertThat(nonNullBody.getStatus()).isEqualTo("error");
+    assertThat(nonNullBody.getMessage()).containsIgnoringCase("empty fields");
   }
 }

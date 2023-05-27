@@ -7,4 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public abstract class AbstractAccountingEntryResponseModel {
   private String message;
+
+  private String status;
 }
