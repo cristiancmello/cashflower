@@ -2,16 +2,17 @@ package com.cristiancmello.cashflower;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.util.Map;
 
 @Getter
-@Setter
-@Builder
-@ToString
-public class AccountingEntryResponseModelWithError {
-    private String message;
-    private Map<String, String> fields;
+public class AccountingEntryResponseModelWithError extends AbstractAccountingEntryResponseModel {
+  private final Map<String, String> fields;
+
+  @Builder
+  public AccountingEntryResponseModelWithError(String message, Map<String, String> fields) {
+    super(message);
+
+    this.fields = fields;
+  }
 }

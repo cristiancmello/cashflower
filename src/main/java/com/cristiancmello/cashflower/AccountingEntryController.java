@@ -13,7 +13,7 @@ import java.util.UUID;
 @RestController
 public class AccountingEntryController {
   @PostMapping(path = "/accounting-entry", consumes = "application/json", produces = "application/json")
-  ResponseEntity<Object> create(@RequestBody AccountingEntryRequestModel requestModel) {
+  ResponseEntity<AbstractAccountingEntryResponseModel> create(@RequestBody AccountingEntryRequestModel requestModel) {
     var isTypeNullOrBlank = requestModel.getType() == null || requestModel.getType().isBlank();
     var isValueNullableOrBlank = requestModel.getValue() == null || requestModel.getValue().isBlank();
     var isRequestFieldsNullableOrBlank = isTypeNullOrBlank || isValueNullableOrBlank;
@@ -49,7 +49,7 @@ public class AccountingEntryController {
 
     var stringFromUuid = String.valueOf(UUID.randomUUID());
 
-    var responseBody = AccountingEntryResponseModel.builder()
+    var responseBody = AccountingEntryResponseModelSuccessfully.builder()
       .message("Successfully created")
       .id(stringFromUuid)
       .creationTime(String.valueOf(LocalDateTime.now().withNano(0)))

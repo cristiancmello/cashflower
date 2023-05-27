@@ -49,7 +49,7 @@ class AccountingEntryControllerIT {
 
     var request = new HttpEntity<>(requestModel, headers);
 
-    var response = restTemplate.postForEntity(uri, request, AccountingEntryResponseModel.class);
+    var response = restTemplate.postForEntity(uri, request, AccountingEntryResponseModelSuccessfully.class);
 
     assertThat(response.getStatusCode().value()).isEqualTo(201);
     assertThat(Objects.requireNonNull(response.getBody()).getMessage()).containsIgnoringCase("successfully created");
