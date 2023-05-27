@@ -1,43 +1,16 @@
 package com.cristiancmello.cashflower;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AccountingEntryControllerIT {
-  @Autowired
-  private TestRestTemplate restTemplate;
-
-  @LocalServerPort
-  private int randomPort;
-
-  private URI uri;
-
-  private HttpHeaders headers;
-
-  @BeforeEach
-  public void setUp() throws URISyntaxException {
-    var baseUrl = "http://localhost:" + randomPort + "/accounting-entry";
-    uri = new URI(baseUrl);
-
-    headers = new HttpHeaders();
-
-    headers.setContentType(MediaType.APPLICATION_JSON);
+class AccountingEntryControllerIT extends BaseController {
+  public AccountingEntryControllerIT() {
+    resourceRootPath = "/accounting-entry";
   }
 
   @Test
