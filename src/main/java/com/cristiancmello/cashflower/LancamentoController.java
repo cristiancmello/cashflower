@@ -1,7 +1,6 @@
 package com.cristiancmello.cashflower;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +13,9 @@ import java.time.LocalDateTime;
 @RequestMapping(path = "lancamento")
 public class LancamentoController {
     @Autowired
+    ConsolidadoFeignClient consolidadoFeignClient;
+
+    @Autowired
     private LancamentoCreditoRepository lancamentoCreditoRepository;
 
     @Autowired
@@ -21,10 +23,20 @@ public class LancamentoController {
 
     @PostMapping("debito")
     LancamentoDebitoResponse lancaDebito(@RequestBody LancamentoDebitoRequest request) {
+        // TODO: colocar uma transaction (se registraConsolidadoDiario, nao lance nada
         var lancamento = lancamentoDebitoRepository.save(Debito.builder()
             .dataEHora(LocalDateTime.now())
             .valor(BigDecimal.valueOf(200.0))
             .build());
+
+        var registroConsolidadoRequest = RegistraConsolidadoRequest.builder()
+            .valor(lancamento.getValor().toString())
+            .tipoMovimentacao("DEBITO")
+            .dataHoraLancamento(lancamento.getDataEHora().toString())
+            .lancamentoId(lancamento.getId().toString())
+            .build();
+
+        consolidadoFeignClient.registraConsolidadoDiario(registroConsolidadoRequest);
 
         return LancamentoDebitoResponse.builder()
             .id(lancamento.getId().toString())
@@ -35,10 +47,20 @@ public class LancamentoController {
 
     @PostMapping("credito")
     LancamentoCreditoResponse lancaCredito(@RequestBody LancamentoCreditoRequest request) {
+        // TODO: colocar uma transaction (se registraConsolidadoDiario, nao lance nada
         var lancamento = lancamentoCreditoRepository.save(Credito.builder()
             .dataEHora(LocalDateTime.now())
             .valor(BigDecimal.valueOf(200.0))
             .build());
+
+        var registroConsolidadoRequest = RegistraConsolidadoRequest.builder()
+            .valor(lancamento.getValor().toString())
+            .tipoMovimentacao("CREDITO")
+            .dataHoraLancamento(lancamento.getDataEHora().toString())
+            .lancamentoId(lancamento.getId().toString())
+            .build();
+
+        consolidadoFeignClient.registraConsolidadoDiario(registroConsolidadoRequest);
 
         return LancamentoCreditoResponse.builder()
             .id(lancamento.getId().toString())
