@@ -1,36 +1,20 @@
 # CashFlower
 
-An App for Cash Flow Management.
+Um App de Gerenciamento de Fluxo de Caixa.
 
-Made out:
+Tecnologias utilizadas:
 
-* Spring Boot 3.1
-* Apache Maven 3.*
+* Spring Boot 3
+* Apache Maven 3
 
 ## Build
 
-* Building YOLO-style
-
 ```sh
-mvn clean install -DskipTests -DskipITs
+mvn clean install
 ```
 
 ## Testing
 
-* Calling all tests
-
 ```sh
 mvn clean verify
-```
-
-### Unit Tests
-
-```sh
-mvn clean verify -skipITs
-```
-
-### Integration Tests
-
-```sh
-mvn clean verify -skipTests
 ```
