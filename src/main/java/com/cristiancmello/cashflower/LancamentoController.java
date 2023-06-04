@@ -13,60 +13,16 @@ import java.time.LocalDateTime;
 @RequestMapping(path = "lancamento")
 public class LancamentoController {
     @Autowired
-    ConsolidadoFeignClient consolidadoFeignClient;
-
-    @Autowired
-    private LancamentoCreditoRepository lancamentoCreditoRepository;
-
-    @Autowired
-    private LancamentoDebitoRepository lancamentoDebitoRepository;
+    LancamentoContabilInputBoundary lancamentoContabilInputBoundary;
 
     @PostMapping("debito")
-    LancamentoDebitoResponse lancaDebito(@RequestBody LancamentoDebitoRequest request) {
-        // TODO: colocar uma transaction (se registraConsolidadoDiario, nao lance nada
-        var lancamento = lancamentoDebitoRepository.save(Debito.builder()
-            .dataEHora(LocalDateTime.now())
-            .valor(BigDecimal.valueOf(200.0))
-            .build());
-
-        var registroConsolidadoRequest = RegistraConsolidadoRequest.builder()
-            .valor(lancamento.getValor().toString())
-            .tipoMovimentacao("DEBITO")
-            .dataHoraLancamento(lancamento.getDataEHora().toString())
-            .lancamentoId(lancamento.getId().toString())
-            .build();
-
-        consolidadoFeignClient.registraConsolidadoDiario(registroConsolidadoRequest);
-
-        return LancamentoDebitoResponse.builder()
-            .id(lancamento.getId().toString())
-            .mensagem("Lancado com sucesso!")
-            .dataEHoraLancamento(String.valueOf(LocalDateTime.now()))
-            .build();
+    LancamentoContabilResponseModel lancaDebito(@RequestBody LancamentoDebitoRequest request) {
+        return lancamentoContabilInputBoundary.lancaDebito(request);
     }
 
     @PostMapping("credito")
-    LancamentoCreditoResponse lancaCredito(@RequestBody LancamentoCreditoRequest request) {
-        // TODO: colocar uma transaction (se registraConsolidadoDiario, nao lance nada
-        var lancamento = lancamentoCreditoRepository.save(Credito.builder()
-            .dataEHora(LocalDateTime.now())
-            .valor(BigDecimal.valueOf(200.0))
-            .build());
-
-        var registroConsolidadoRequest = RegistraConsolidadoRequest.builder()
-            .valor(lancamento.getValor().toString())
-            .tipoMovimentacao("CREDITO")
-            .dataHoraLancamento(lancamento.getDataEHora().toString())
-            .lancamentoId(lancamento.getId().toString())
-            .build();
-
-        consolidadoFeignClient.registraConsolidadoDiario(registroConsolidadoRequest);
-
-        return LancamentoCreditoResponse.builder()
-            .id(lancamento.getId().toString())
-            .mensagem("Lancado com sucesso!")
-            .dataEHoraLancamento(String.valueOf(LocalDateTime.now()))
-            .build();
+    LancamentoContabilResponseModel lancaCredito(@RequestBody LancamentoCreditoRequest request) {
+        return lancamentoContabilInputBoundary.lancaCredito(request);
     }
 
     // TODO: impl: atualizaCredito, atualizaDebito, deletaCredito, deletaDebito

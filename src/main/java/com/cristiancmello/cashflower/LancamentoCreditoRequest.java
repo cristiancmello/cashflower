@@ -4,9 +4,9 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
-public class LancamentoCreditoRequest {
-    private String valor;
-
-    private String dataEHora;
+public class LancamentoCreditoRequest extends LancamentoContabilRequestModel {
+    @Builder
+    public LancamentoCreditoRequest(String valor, String dataEHora) {
+        super(valor, dataEHora);
+    }
 }
