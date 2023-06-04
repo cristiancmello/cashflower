@@ -22,7 +22,7 @@ public class LancamentoContabilUseCase implements LancamentoContabilInputBoundar
 
 
     @Override
-    public LancamentoContabilResponseModel lanca(LancamentoContabilRequestModel request, TipoMovimentacao tipoMovimentacao) throws Exception {
+    public LancamentoContabilResponseModel lanca(LancamentoContabilRequestModel request, TipoMovimentacao tipoMovimentacao) {
         LancamentoContabil lancamento;
 
         var dataEHoraDeRegistro = LocalDateTime.now();
@@ -82,12 +82,12 @@ public class LancamentoContabilUseCase implements LancamentoContabilInputBoundar
     }
 
     @Override
-    public LancamentoContabilResponseModel lancaCredito(LancamentoCreditoRequest request) throws Exception {
+    public LancamentoContabilResponseModel lancaCredito(LancamentoCreditoRequest request) {
         return lanca(request, TipoMovimentacao.CREDITO);
     }
 
     @Override
-    public LancamentoContabilResponseModel lancaDebito(LancamentoDebitoRequest request) throws Exception {
+    public LancamentoContabilResponseModel lancaDebito(LancamentoDebitoRequest request) {
         return lanca(request, TipoMovimentacao.DEBITO);
     }
 }
