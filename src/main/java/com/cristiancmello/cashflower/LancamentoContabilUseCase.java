@@ -23,30 +23,46 @@ public class LancamentoContabilUseCase implements LancamentoContabilInputBoundar
 
     @Override
     public LancamentoContabilResponseModel lanca(LancamentoContabilRequestModel request, TipoMovimentacao tipoMovimentacao) throws Exception {
-        LancamentoContabil lancamento = null;
+        LancamentoContabil lancamento;
+
         var dataEHoraDeRegistro = LocalDateTime.now();
-        var valor = BigDecimal.valueOf(Double.parseDouble(request.getValor()));
+        var valor = BigDecimal.ZERO;
+
+        if (request.getValor() == null) {
+            return lancamentoContabilPresenter.prepareFailView("Campo valor nao pode ser vazio.");
+        }
+
+        try {
+            valor = BigDecimal.valueOf(Double.parseDouble(request.getValor()));
+        } catch (NumberFormatException e) {
+            return lancamentoContabilPresenter.prepareFailView("Valor inserido deve ser decimal. Ex. 200.10");
+        }
+
         var lancamentoContabil = new LancamentoContabil(valor, dataEHoraDeRegistro);
 
         String lancamentoId;
 
-        if (tipoMovimentacao == TipoMovimentacao.CREDITO) {
-            lancamento = lancamentoCreditoRepository.save(Credito.builder()
-                .valor(lancamentoContabil.getValor())
-                .dataEHora(lancamentoContabil.getDataEHora())
-                .build());
+        switch (tipoMovimentacao) {
+            case CREDITO -> {
+                lancamento = lancamentoCreditoRepository.save(Credito.builder()
+                    .valor(lancamentoContabil.getValor())
+                    .dataEHora(lancamentoContabil.getDataEHora())
+                    .build());
 
-            lancamentoId = String.valueOf(((Credito) lancamento).getId());
-        } else if (tipoMovimentacao == TipoMovimentacao.DEBITO) {
-            lancamento = lancamentoDebitoRepository.save(Debito.builder()
-                .valor(lancamentoContabil.getValor())
-                .dataEHora(lancamentoContabil.getDataEHora())
-                .build()
-            );
+                lancamentoId = String.valueOf(((Credito) lancamento).getId());
+            }
+            case DEBITO -> {
+                lancamento = lancamentoDebitoRepository.save(Debito.builder()
+                    .valor(lancamentoContabil.getValor())
+                    .dataEHora(lancamentoContabil.getDataEHora())
+                    .build()
+                );
 
-            lancamentoId = String.valueOf(((Debito) lancamento).getId());
-        } else {
-            throw new Exception("Tipo Movimentacao precisa ser ou CREDITO ou DEBITO.");
+                lancamentoId = String.valueOf(((Debito) lancamento).getId());
+            }
+            default -> {
+                return lancamentoContabilPresenter.prepareFailView("Somente operacoes de Credito ou Debito sao aceitos.");
+            }
         }
 
         var registroConsolidadoRequest = RegistraConsolidadoRequest.builder()
