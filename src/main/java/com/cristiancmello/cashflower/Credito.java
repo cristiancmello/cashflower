@@ -6,19 +6,17 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
-@Builder
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
 @Table(name = "credito")
-public class Credito {
+public class Credito extends LancamentoContabil {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private BigDecimal valor;
-
-    private LocalDateTime dataEHora;
+    @Builder
+    public Credito(BigDecimal valor, LocalDateTime dataEHora, Long id) {
+        super(valor, dataEHora);
+        this.id = id;
+    }
 }

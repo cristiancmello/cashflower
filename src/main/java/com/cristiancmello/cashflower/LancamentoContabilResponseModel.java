@@ -8,8 +8,6 @@ import lombok.Setter;
 @Setter
 @Builder
 public class LancamentoContabilResponseModel {
-    private String id;
-
     private String mensagem;
 
     private String dataEHoraLancamento;

@@ -16,12 +16,12 @@ public class LancamentoController {
     LancamentoContabilInputBoundary lancamentoContabilInputBoundary;
 
     @PostMapping("debito")
-    LancamentoContabilResponseModel lancaDebito(@RequestBody LancamentoDebitoRequest request) {
+    LancamentoContabilResponseModel lancaDebito(@RequestBody LancamentoDebitoRequest request) throws Exception {
         return lancamentoContabilInputBoundary.lancaDebito(request);
     }
 
     @PostMapping("credito")
-    LancamentoContabilResponseModel lancaCredito(@RequestBody LancamentoCreditoRequest request) {
+    LancamentoContabilResponseModel lancaCredito(@RequestBody LancamentoCreditoRequest request) throws Exception {
         return lancamentoContabilInputBoundary.lancaCredito(request);
     }
 
