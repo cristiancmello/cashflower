@@ -1,0 +1,5 @@
+server:
+  port : 8080
+
+consolidadodiario:
+  url: http://servico-consolidadodiario:8081
