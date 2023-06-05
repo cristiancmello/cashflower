@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y openjdk-17-jdk maven
 
 COPY . .
 
-RUN mvn package -DskipTests
+RUN mvn package
 
 EXPOSE 8080
 

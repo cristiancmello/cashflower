@@ -33,25 +33,14 @@ mvn clean verify
   - Serviço **CashFlower** responsável pelos lançamentos de crédito e débito
   - Serviço **ConsolidadoDiario** responsável pelo relatório de fluxo de caixa diário
 
-### Build deste projeto ('CashFlower')
+### Build & Running
 
 ```sh
-docker build -t cashflower .
-```
-
-### Build do serviço 'ConsolidadoDiario'
-
-```sh
+# Clone o repositório do servico consolidadodiario
 git clone https://github.com/cristiancmello/consolidadodiario
-docker build -t consolidadodiario .
-```
 
-### Executando ambas aplicações integrados por rede
-
-```sh
-docker network create cashflower_network
-docker run --name servico-cashflower --network cashflower_network -p 8080:8080 cashflower
-docker run --name servico-consolidadodiario --network cashflower_network -p 8081:8081 consolidadodiario
+# Suba a Stack com servicos do CashFlower e ConsolidadoDiario
+docker-compose up -d
 ```
 
 ### Testando APIs (com cURL)

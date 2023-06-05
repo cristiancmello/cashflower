@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  cashflower:
+    container_name: servico-cashflower
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - consolidadodiario
+    networks:
+      - cashflower_network
+  consolidadodiario:
+    container_name: servico-consolidadodiario
+    build:
+      context: ./../consolidadodiario
+    networks:
+      - cashflower_network
+
+networks:
+  cashflower_network:
