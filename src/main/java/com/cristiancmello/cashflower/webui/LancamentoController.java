@@ -17,14 +17,12 @@ public class LancamentoController {
     final LancamentoContabilUseCase lancamentoContabilUseCase;
 
     @PostMapping("debito")
-    LancamentoContabilResponseModel lancaDebito(@RequestBody LancamentoDebitoRequest request) throws Exception {
+    LancamentoContabilResponseModel lancaDebito(@RequestBody LancamentoDebitoRequest request) {
         return lancamentoContabilUseCase.lancaDebito(request);
     }
 
     @PostMapping("credito")
-    LancamentoContabilResponseModel lancaCredito(@RequestBody LancamentoCreditoRequest request) throws Exception {
+    LancamentoContabilResponseModel lancaCredito(@RequestBody LancamentoCreditoRequest request) {
         return lancamentoContabilUseCase.lancaCredito(request);
     }
-
-    // TODO: impl: atualizaCredito, atualizaDebito, deletaCredito, deletaDebito
 }
