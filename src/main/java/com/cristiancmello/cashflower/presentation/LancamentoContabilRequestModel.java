@@ -1,7 +1,6 @@
-package com.cristiancmello.cashflower;
+package com.cristiancmello.cashflower.presentation;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter

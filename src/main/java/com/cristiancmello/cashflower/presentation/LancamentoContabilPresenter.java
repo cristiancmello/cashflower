@@ -1,4 +1,4 @@
-package com.cristiancmello.cashflower;
+package com.cristiancmello.cashflower.presentation;
 
 public interface LancamentoContabilPresenter {
     LancamentoContabilResponseModel prepareSuccessView(LancamentoContabilResponseModel lancamentoContabil);

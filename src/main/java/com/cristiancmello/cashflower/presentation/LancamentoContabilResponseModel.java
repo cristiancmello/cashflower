@@ -1,13 +1,13 @@
-package com.cristiancmello.cashflower;
+package com.cristiancmello.cashflower.presentation;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Builder
-public class LancamentoDebitoResponse {
-    private String id;
-
+public class LancamentoContabilResponseModel {
     private String mensagem;
 
     private String dataEHoraLancamento;

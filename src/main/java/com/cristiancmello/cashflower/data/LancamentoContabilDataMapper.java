@@ -1,4 +1,4 @@
-package com.cristiancmello.cashflower;
+package com.cristiancmello.cashflower.data;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @AllArgsConstructor
-public class LancamentoContabil {
+public class LancamentoContabilDataMapper {
     private BigDecimal valor;
 
     private LocalDateTime dataEHora;

@@ -1,4 +1,4 @@
-package com.cristiancmello.cashflower;
+package com.cristiancmello.cashflower.data;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,14 +8,14 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@Table(name = "debito")
-public class Debito extends LancamentoContabil {
+@Table(name = "credito")
+public class CreditoDataMapper extends LancamentoContabilDataMapper {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Builder
-    public Debito(BigDecimal valor, LocalDateTime dataEHora, Long id) {
+    public CreditoDataMapper(BigDecimal valor, LocalDateTime dataEHora, Long id) {
         super(valor, dataEHora);
         this.id = id;
     }

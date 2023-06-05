@@ -1,4 +1,4 @@
-package com.cristiancmello.cashflower;
+package com.cristiancmello.cashflower.domain.entity;
 
 public enum TipoMovimentacao {
     CREDITO,
