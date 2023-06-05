@@ -23,6 +23,10 @@ mvn clean install
 mvn clean verify
 ```
 
+* Cobertura aceita de 80%
+
+![](./docs/jacoco.png)
+
 ## Containers
 
 * Existem dois projetos a serem construídos:
