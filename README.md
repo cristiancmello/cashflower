@@ -6,6 +6,10 @@ Tecnologias utilizadas:
 
 * Spring Boot 3
 * Apache Maven 3
+* Docker Engine v23.0
+* Banco de Dados H2 (SQL, Persistência em RAM para demonstração)
+
+Foi adotado o **Clean Architecture** como *Padrão Arquitetural* e abordagem de deployment baseado em **microsserviços**.
 
 ## Build
 
