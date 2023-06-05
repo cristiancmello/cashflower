@@ -1,4 +1,4 @@
-package com.cristiancmello.cashflower;
+package com.cristiancmello.cashflower.gateway;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
